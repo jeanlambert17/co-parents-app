@@ -114,14 +114,14 @@ export default class AddEvent extends Component {
         {/* Start */}
         <RangeItem 
           title="Start:"
-          date={start.date}
-          hour={start.hour}
+          datetime={start}
+          onHourChange={(start) => this.handleChange({start})}
         />
         {/* End */}
         <RangeItem 
           title="End:"
-          date={end.date}
-          hour={end.hour}
+          datetime={end}
+          onHourChange={(end) => this.handleChange({end})}
         />
         {/* Location */}
         <TextItem 

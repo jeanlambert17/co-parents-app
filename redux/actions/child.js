@@ -4,12 +4,12 @@ import { ADD_CHILD, REMOVE_CHILD } from '../const/child';
 const INITIAL_STATE = {
   children: [{
     id: 1,
-    icon: '',
+    icon: 'null',
     name: 'Maria'
   }, {
     id: 2,
-    icon:'',
-    name:'Peter'
+    icon: null,
+    name: 'Peter'
   }]
 }
 

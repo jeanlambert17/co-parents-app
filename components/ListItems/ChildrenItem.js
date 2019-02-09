@@ -16,6 +16,7 @@ export default (props) => (
             <Child
               key={i}
               name={child.name}
+              icon={child.icon}
               selected={child.selected}
               onPress={() => props.onPress(child.id, child.selected)}
             />
@@ -27,15 +28,14 @@ export default (props) => (
 )
 
 const Child = (props) => {
-
-  const containerStyles = props.selected ? {borderWidth: 2,borderColor:colors.green} : null;
-
+  const containerStyles = props.selected ? {borderWidth: 2, borderColor:colors.green} : null;
   return (
     <View style={styles.childContainer}>
       <Avatar
         containerStyle={containerStyles}
         rounded
-        source={{uri:'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'}}
+        title={props.name[0].toUpperCase()}
+        source={{uri:props.icon}}
         editButton={{
           name:'sc-telegram',
           type:'evilicon',
