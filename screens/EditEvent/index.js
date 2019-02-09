@@ -6,7 +6,7 @@ const mapStateToProps = ({child}) => ({
   children: child.children,
 })
 const mapDispatchToProps = dispatch => ({
-  removeEvent: (i) => dispatch(removeEvent(i)),
+  removeEvent: (id) => dispatch(removeEvent(id)),
   setEvent: evt => dispatch(setEvent(evt))
 })
 

@@ -9,16 +9,10 @@ import OptionMenu from './OptionMenu';
 
 class _Calendar extends Component {
 
-  static navigationOptions = {
-    title: 'Calendar',
-    headerRight: (
-      <OptionMenu />
-    )
-  }
-
   state = {
     selected: {},
-    selectedEvent: null
+    selectedEvent: null,
+    markedDates: {}
   }
 
   componentDidMount() {
@@ -33,20 +27,54 @@ class _Calendar extends Component {
     })
   }
 
+  static navigationOptions = {
+    title: 'Calendar',
+    headerRight: (
+      <OptionMenu />
+    )
+  }
+
+  componentDidUpdate(prevProps){
+    if(prevProps.events.length !== this.props.events.length) {
+      this.refreshMarkedDays();
+    }
+  }
+
   handleOnDayPress = (day) => {
     this.setState({selected: day});
     console.log(day);
   }
 
+  refreshMarkedDays() {      
+    let markedDates = {};
+    this.props.events.forEach(evt => {
+      markedDates = {
+        ...markedDates,
+        [evt.start.date]: {
+          periods: [
+            { startingDay: true, endingDay: true, color: colors.green }
+          ]
+        }
+      }
+    })
+    this.setState({markedDates})
+  }
+
   render() {
-    const { selected } = this.state;
-    const { events }  = this.props;
-    const filteredEvents = events.filter(evt => evt.start.date === selected.dateString)    
+    const { selected, markedDates } = this.state;
+    const { events } = this.props;
+    let selectedDay = events.find(evt => evt.start.date === selected.dateString);    
+    selectedDay = {[selected.dateString]: { selected: true, periods: selectedDay === undefined ? null : [{startingDay:true, endingDay:true, color:colors.green}]}}
+    const filteredEvents = events.filter(evt => evt.start.date === selected.dateString)
     
     return (
       <View style={{flex: 1}}>      
         <Calendar
-          markedDates={{[selected.dateString]: {selected:true}}}
+          markedDates={{
+            ...markedDates,
+            ...selectedDay
+          }}
+          markingType="multi-period"
           onDayPress={this.handleOnDayPress}
           onMonthChange={(month) => {console.log('month changed', month)}}
           disableMonthChange={true}

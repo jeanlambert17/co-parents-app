@@ -71,16 +71,24 @@ export default class AddEvent extends Component {
     }
   }
 
-  handleChange = (name,prop) => {
-    this.setState({[name]:prop});
-    this.props.setEvent(this.state);
+  handleChange = (prop) => {
+    let state = this.state;
+    state = {
+      ...state,
+      ...prop,
+    }
+    this.setState({...state});
+    this.props.setEvent(state);
   }
 
   handlerSelectChild = (id, selected) => {
-    this.setState({
-      children: this.state.children.map(child => child.id === id ? { ...child, selected: !selected} : child)
-    })
-    this.props.setEvent(this.state);
+    let state = this.state;
+    state = {
+      ...state,
+      children: state.children.map(child => child.id === id ? { ...child, selected: !selected} : child)
+    }
+    this.setState({...state})
+    this.props.setEvent(state);
   }
 
   render() {
@@ -91,7 +99,7 @@ export default class AddEvent extends Component {
         {/* Name field */}
         <TextItem 
           value={name} 
-          onChangeText={(name) => this.handleChange('name',name)}
+          onChangeText={(name) => this.handleChange({name})}
           placeholder="Tennis, school, park with friends..."
           title="Name: "
         />
@@ -99,7 +107,7 @@ export default class AddEvent extends Component {
         <SwitchItem
           title="All day:"
           value={allDay}
-          onPress={(allDay) => this.handleChange('allDay',allDay)}
+          onPress={(allDay) => this.handleChange({allDay})}
         />
         {/* Start */}
         <RangeItem 
@@ -116,7 +124,7 @@ export default class AddEvent extends Component {
         {/* Location */}
         <TextItem 
           value={location} 
-          onChangeText={(location) => this.handleChange('location',location)}
+          onChangeText={(location) => this.handleChange({location})}
           placeholder=""
           title="Location:"
         />
@@ -128,7 +136,7 @@ export default class AddEvent extends Component {
         {/* Note */}
         <TextItem 
           value={note} 
-          onChangeText={(note) => this.handleChange('note',note)}
+          onChangeText={(note) => this.handleChange({note})}
           placeholder="Petar is ill, please be careful"
           title="Note: "
         />
@@ -140,12 +148,12 @@ export default class AddEvent extends Component {
         <SwitchItem
           title="Private:"
           value={isPrivate}
-          onPress={(isPrivate) => this.handleChange('isPrivate',isPrivate)}
+          onPress={(isPrivate) => this.handleChange({isPrivate})}
         />
         {/* Interval */}
         <TextItem 
           value={interval} 
-          onChangeText={(interval) => this.handleChange('interval',interval)}
+          onChangeText={(interval) => this.handleChange({interval})}
           placeholder=""
           title="Interval: "
         />
