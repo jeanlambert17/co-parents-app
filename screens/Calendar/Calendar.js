@@ -5,25 +5,20 @@ import { Text, Icon } from 'react-native-elements';
 import colors from '../../constants/colors';
 import { DEVICE_WIDTH } from '../../constants/device';
 import EventList from './EventList';
+import OptionMenu from './OptionMenu';
 
 class _Calendar extends Component {
 
   static navigationOptions = {
     title: 'Calendar',
     headerRight: (
-      <Icon 
-        type="simple-line-icon" 
-        name="options-vertical"
-        size={18}
-        color={colors.green}
-        containerStyle={{marginRight:10}}
-        onPress={() => console.log('On menu press')}
-      />
+      <OptionMenu />
     )
   }
 
   state = {
-    selected: {}
+    selected: {},
+    selectedEvent: null
   }
 
   componentDidMount() {
@@ -45,9 +40,11 @@ class _Calendar extends Component {
 
   render() {
     const { selected } = this.state;
-    const dateData = new Date(selected.year,selected.month,selected.day).toDateString();
+    const { events }  = this.props;
+    const filteredEvents = events.filter(evt => evt.start.date === selected.dateString)    
+    
     return (
-      <View style={{flex: 1}}>
+      <View style={{flex: 1}}>      
         <Calendar
           markedDates={{[selected.dateString]: {selected:true}}}
           onDayPress={this.handleOnDayPress}
@@ -64,11 +61,12 @@ class _Calendar extends Component {
           }}
         />
         <View style={styles.selectedDayContainer}>
-          <Text style={styles.selectedDayText}>{dateData}</Text>
+          <Text style={styles.selectedDayText}>{new Date(selected.year,selected.month,selected.day).toDateString()}</Text>
         </View>
-        <EventList />
+        <EventList events={filteredEvents} onEventSelect={(selectedEvent) => this.setState({selectedEvent})} />
         <View style={styles.footer}>
           <Icon
+            disabled={this.state.selectedEvent === null ? true : false}
             raised
             reverse
             type="evilicon" 
@@ -77,7 +75,7 @@ class _Calendar extends Component {
             color="#e0e0e0"
             reverseColor={colors.green}
             containerStyle={{marginLeft:10}}
-            onPress={() => this.props.navigation.navigate('EditEvent', { updateEvent: this.props.updateEvent, event:{ id: 0 }})}
+            onPress={() => this.props.navigation.navigate('EditEvent', { updateEvent: this.props.updateEvent, event: this.state.selectedEvent})}
           />
           <Icon
             raised
@@ -87,7 +85,7 @@ class _Calendar extends Component {
             size={18}
             color="#24bfff"
             containerStyle={{marginRight:10}}
-            onPress={() => this.props.navigation.navigate('AddEvent', { addEvent: this.props.addEvent })}
+            onPress={() => this.props.navigation.navigate('AddEvent', { addEvent: this.props.addEvent, start: selected })}
           />
         </View>
       </View>

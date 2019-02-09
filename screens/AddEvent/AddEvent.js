@@ -15,12 +15,6 @@ const {
 
 export default class AddEvent extends Component {
 
-  componentDidMount() {
-    this.setState({
-      children: this.props.children.map(child => ({...child, selected: false}))
-    })
-  }
-
   static navigationOptions = ({navigation}) => ({
     title: 'Event',
     headerRight: (
@@ -29,7 +23,8 @@ export default class AddEvent extends Component {
         name="check"
         color={colors.green}
         containerStyle={{marginRight:10}}
-        onPress={() => navigation.getParam('addEvent', null)()}
+        underlayColor={colors.textLight}
+        onPress={() => {navigation.getParam('addEvent', null)(); navigation.goBack()}}
       />
     ),
     headerLeft: (
@@ -37,11 +32,22 @@ export default class AddEvent extends Component {
         type="material-community" 
         name="window-close" 
         color={colors.gray}
+        underlayColor={colors.textLight}
         containerStyle={{marginLeft:10}}
         onPress={() => navigation.goBack()}
       />
     )
   })
+
+  componentDidMount() {
+    const { children, navigation } = this.props;
+    const date = navigation.getParam('start').dateString;
+    this.setState({
+      children: children.map(child => ({...child, selected: false})),
+      start: {date, hour: '8:00 AM'},
+      end: {date, hour: '8:00 AM'}
+    })
+  }
 
   constructor(props) {
     super(props)
@@ -50,11 +56,11 @@ export default class AddEvent extends Component {
       allDay: false,
       start:{      
         date:"04/01/2019",
-        hour:"1:00 PM"
+        hour:"8:00 AM"
       },
       end:{
         date:"04/01/2019",
-        hour:"1:00 PM"
+        hour:"8:00 AM"
       },
       location:'',
       children:[],
@@ -79,7 +85,7 @@ export default class AddEvent extends Component {
 
   render() {
     const { name, allDay, start, end, location, note, children, isPrivate, interval } = this.state;
-    console.log(this.state.children)
+    console.log(this.props.events)
     return (
       <ScrollView style={styles.container}>
         {/* Name field */}

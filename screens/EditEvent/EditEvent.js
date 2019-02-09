@@ -9,7 +9,8 @@ const {
   SwitchItem,
   ChevronItem,
   RangeItem,
-  DeleteItem
+  DeleteItem,
+  ChildrenItem
 } = ListItems;
 
 
@@ -19,6 +20,8 @@ export default class AddEvent extends Component {
     // GET DATA FROM NAV
     const event = this.props.navigation.getParam('event', null);
     if (null) this.props.navigation.goBack();
+    this.setState({...event})
+    console.log(event)
   }
 
   static navigationOptions = ({navigation}) => ({
@@ -29,7 +32,7 @@ export default class AddEvent extends Component {
         name="check"
         color={colors.green}
         containerStyle={{marginRight:10}}
-        onPress={() => navigation.getParam('editEvent', null)()}
+        onPress={() => {navigation.getParam('updateEvent', null)(); navigation.goBack()}}
       />
     ),
     headerLeft: (
@@ -46,6 +49,7 @@ export default class AddEvent extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      id: -1,
       name:'',
       allDay: false,
       start:{      
@@ -112,6 +116,11 @@ export default class AddEvent extends Component {
           onChangeText={(location) => this.handleChange('location',location)}
           placeholder=""
           title="Location:"
+        />
+        {/* Children */}
+        <ChildrenItem 
+          children={children}
+          onPress={this.handlerSelectChild}
         />
         {/* Note */}
         <TextItem 

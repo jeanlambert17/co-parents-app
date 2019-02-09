@@ -29,12 +29,13 @@ const list = [
 class EventList extends Component {
 
   renderAssigment = (item,i) => {
-    switch(item.type) {
-      case 'task': {
+    // switch(item.type) {
+      // case 'task': {
         return <ListItem
+          onPress={() => this.props.onEventSelect({id: i, ...item})}
           containerStyle={styles.itemContainer}
           key={i}
-          title={item.title}
+          title={item.name}
           leftIcon={{
             color: colors.green,
             raised:true,
@@ -42,21 +43,21 @@ class EventList extends Component {
             name: 'clipboard-notes'
           }}
         />
-      }
-      case 'child': {
-        return <ListItem 
-          key={i}
-          title={item.title}
-          leftIcon={{name:item.icon}}
-        />
-      }
-    }
+      // }
+      // case 'child': {
+      //   return <ListItem 
+      //     key={i}
+      //     title={item.title}
+      //     leftIcon={{name:item.icon}}
+      //   />
+      // }
+    // }
   }
 
   render() {
     return (
       <ScrollView>
-        {list.map((item,i) => this.renderAssigment(item,i))}
+        {this.props.events.map((item,i) => this.renderAssigment(item,i))}
       </ScrollView>
     )
   }
