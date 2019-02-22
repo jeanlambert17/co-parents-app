@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, ImageBackground } from 'react-native';
-import { Button, Logo } from '../../components'
+import { Logo } from '../../components'
+import { Button } from '../../components/Buttons';
 import { DEVICE_HEIGHT } from '../../constants/device';
-
-// const DEVICE_HEIGHT = Dimensions.get('window').height;
 
 class Welcome extends Component {
 

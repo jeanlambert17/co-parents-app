@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, ImageBackground, ScrollView, Text, KeyboardAvoidingView } from 'react-native'
-import { DEVICE_WIDTH } from '../../constants/device';
 import Switch from 'react-native-switch-pro';
-import { Input, Button } from '../../components';
+import { Input, FieldInput } from '../../components/Input';
+import { Button } from '../../components/Buttons';
 import Child from './Child';
-// import { Text } from 'react-native-elements';
-import {ChildrenMarker,ChildMarker} from './ChildrenMarker';
-import { Icon } from 'react-native-elements';
+import { ChildrenMarker, ChildMarker } from './ChildrenMarker';
+import { FamilyBackground } from '../../components/Background';
 
 class AddChild extends Component {
 
@@ -35,16 +34,14 @@ class AddChild extends Component {
 
   handleOnTextChange = (i,info) => {
     let children = this.state.children;
-
     children[i] = {
       ...children[i],
       ...info
     }
-
     this.setState({children});
   }
 
-  onEndEditing = () => {
+  handleOnEndEditing = () => {
     const value = this.state.numberOfChild;
     if(isNaN(value)) 
       return
@@ -59,16 +56,22 @@ class AddChild extends Component {
   }
 
   handleNext = () => {
-    console.log('Handle next')
-    this.state.children.forEach(child => this.props.addChild(child));
-    this.props.navigation.navigate('AddCoParentScreen');
+    let { firstname, lastname, children } = this.state;
+    const { navigation } = this.props;
+    if(firstname === '' && lastname === '') {
+      navigation.navigate('AddCoParentScreen');
+    } else {
+      children = [{firstname,lastname}, ...children];
+      children.forEach(child => this.props.addChild({...child, icon: null, id: Math.random() * 100000}));
+      navigation.navigate('AddCoParentScreen');
+    }
   }
 
   render() {
 
 
     return (
-      <ImageBackground source={require('../../assets/background_after_sign_up.png')} style={styles.background} resizeMode="stretch">
+      <FamilyBackground>
       <KeyboardAvoidingView enabled style={{flex:1}}>
         <ScrollView contentContainerStyle={styles.container}>
           <Child
@@ -95,7 +98,7 @@ class AddChild extends Component {
                 placeholderTextColor="#535353"
                 placeholder={this.state.numberOfChild} 
                 onChangeText={(numberOfChild) => this.setState({numberOfChild})} 
-                onEndEditing={this.onEndEditing}
+                onEndEditing={this.handleOnEndEditing}
               />
               <Text style={styles.amount}>Amount of children</Text>
               {this.state.children.map((c,i) => (
@@ -122,21 +125,15 @@ class AddChild extends Component {
             titleStyle={styles.buttonTitle}
             buttonStyle={styles.buttonStyle}
             onPress={this.handleNext}
-            // onPress={() => console.log(this.state)}
           />
         </ScrollView>
       </KeyboardAvoidingView>
-      </ImageBackground>
+      </FamilyBackground>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    width: '100%',
-    height: '100%'
-  },
   container: {
     alignItems: 'center',
     marginTop:30,

@@ -5,11 +5,13 @@ const INITIAL_STATE = {
   children: [{
     id: 1,
     icon: 'null',
-    name: 'Maria'
+    firstname: 'Maria',
+    lastname:'Eliot'    
   }, {
     id: 2,
     icon: null,
-    name: 'Peter'
+    firstname: 'Peter',
+    lastname:'Eliot'
   }]
 }
 

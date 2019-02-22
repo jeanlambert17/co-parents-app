@@ -1,8 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
-import { LogInScreen, SignUpScreen, WelcomeScreen, AddChildScreen, AddCoParentScreen, CalendarScreen } from '../../screens'
-import { Icon } from 'react-native-elements';
-
+import { LogInScreen, SignUpScreen, WelcomeScreen, AddChildScreen, AddCoParentScreen, CalendarScreen, CoParentInviteScreen } from '../../screens'
+import BackIcon from '../commons/BackIcon';
+import colors from '../../constants/colors';
 
 export default createStackNavigator(
   {
@@ -23,6 +23,16 @@ export default createStackNavigator(
     },
     CalendarScreen: {
       screen: CalendarScreen
+    },
+    CoParentInvite: {
+      screen: CoParentInviteScreen,
+      navigationOptions: {
+        title: 'Invite Co-Parent',
+        headerTitleStyle: {
+          fontWeight: 'normal',
+          color: colors.headerTitle
+        }
+      }
     }
   },{
     initialRouteName: 'WelcomeScreen',
@@ -30,8 +40,9 @@ export default createStackNavigator(
     defaultNavigationOptions: {
       headerTitleStyle: {
         fontWeight: 'normal',
+        color: colors.headerTitle
       },
-      headerBackImage: <Icon type="ionicon" name="ios-arrow-back" color="#454545" containerStyle={{padding:7.5}}/>
+      headerBackImage: <BackIcon />
     },
   }
 );

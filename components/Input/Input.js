@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Switch } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Input, Icon } from 'react-native-elements';
 import { DEVICE_WIDTH } from "../../constants/device";
 

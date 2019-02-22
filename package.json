@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "moment": "2.24.0",
     "react": "16.6.3",
     "react-native": "0.58.4",
     "react-native-calendars": "^1.22.0",
@@ -19,7 +20,8 @@
     "react-navigation": "^3.1.5",
     "react-redux": "^6.0.0",
     "redux": "^4.0.1",
-    "redux-persist": "^5.10.0"
+    "redux-persist": "^5.10.0",
+    "reselect": "4.0.0"
   },
   "devDependencies": {
     "babel-core": "7.0.0-bridge.0",

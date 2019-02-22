@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { View, KeyboardAvoidingView, ImageBackground, StyleSheet, ScrollView } from 'react-native';
-import { Logo, Input, LogInButton } from '../../components';
+import { Logo } from '../../components';
+import { Input } from '../../components/Input';
+import { LogInButton } from '../../components/Buttons';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../constants/device';
-
 
 class SignUp extends Component {
 

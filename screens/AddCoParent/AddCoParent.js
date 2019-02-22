@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, ImageBackground } from 'react-native'
-import { Input, Button } from '../../components'
+import { FieldInput } from '../../components/Input'
+import { Button } from '../../components/Buttons';
 import { DEVICE_WIDTH } from '../../constants/device';
+import { FamilyBackground } from '../../components/Background';
+import colors from '../../constants/colors';
 
 class AddCoParent extends Component {
 
@@ -9,10 +12,10 @@ class AddCoParent extends Component {
     title: 'Add co-parent info',
     headerTitleStyle: {
       fontWeight: 'normal',
-      color: '#8f8f8f'
+      color: colors.headerTitle
     },
     headerStyle: {
-      backgroundColor:'#f6f6f6'
+      backgroundColor:colors.background
     },
   };
 
@@ -24,22 +27,14 @@ class AddCoParent extends Component {
   render() {
 
     return (
-      <ImageBackground source={require('../../assets/background_after_sign_up.png')} style={styles.background} resizeMode="stretch">
+      <FamilyBackground>
       <View style={styles.container}>
-        <Input
-          icon={false}
-          color="#545454"
-          borderColor="#beb8b6"
-          containerStyle={styles.inputContainer}
+        <FieldInput
           placeholder="First Name"
           textContentType="name"
           onChangeText={(firstname) => this.setState({firstname})}
         />
-        <Input
-          icon={false}
-          color="#545454" //
-          borderColor="#beb8b6"
-          containerStyle={styles.inputContainer}
+        <FieldInput
           placeholder="Last Name"
           textContentType="familyName"
           onChangeText={(lastname) => this.setState({lastname})}
@@ -50,7 +45,7 @@ class AddCoParent extends Component {
           buttonStyle={styles.buttonStyle}
           containerStyle={styles.buttonContainer}
           titleStyle={styles.buttonTitle}
-          onPress={() => console.log('Invite co-parent pressed')}
+          onPress={() => console.log('Invite co-parent')}
         />
         <Button 
           title="CONFIRM"
@@ -58,20 +53,15 @@ class AddCoParent extends Component {
           buttonStyle={styles.buttonStyle}
           containerStyle={styles.buttonContainer}
           titleStyle={styles.buttonTitle}
-          onPress={() => this.props.navigation.navigate('CalendarNavigator')}
+          onPress={() => this.props.navigation.navigate('MainNavigator')}
         />
       </View>
-      </ImageBackground>
+      </FamilyBackground>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    width: '100%',
-    height: '100%'
-  },
   container: {
     flex:1,
     width: DEVICE_WIDTH,

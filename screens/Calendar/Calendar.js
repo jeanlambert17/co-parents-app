@@ -1,13 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Calendar } from 'react-native-calendars';
 import { Text, Icon } from 'react-native-elements';
 import colors from '../../constants/colors';
-import { DEVICE_WIDTH } from '../../constants/device';
 import EventList from './EventList';
-import OptionMenu from './OptionMenu';
-
-class _Calendar extends Component {
+import { FixedFooter } from '../../components/Footers';
+import { OptionButton } from '../../components/Buttons';
+class _Calendar extends React.PureComponent {
 
   state = {
     selected: {},
@@ -29,9 +28,7 @@ class _Calendar extends Component {
 
   static navigationOptions = {
     title: 'Calendar',
-    headerRight: (
-      <OptionMenu />
-    )
+    headerRight: <OptionButton />
   }
 
   componentDidUpdate(prevProps){
@@ -92,7 +89,7 @@ class _Calendar extends Component {
           <Text style={styles.selectedDayText}>{new Date(selected.year,selected.month,selected.day).toDateString()}</Text>
         </View>
         <EventList events={filteredEvents} onEventSelect={(selectedEvent) => this.setState({selectedEvent})} />
-        <View style={styles.footer}>
+        <FixedFooter>
           <Icon
             disabled={this.state.selectedEvent === null ? true : false}
             raised
@@ -115,7 +112,7 @@ class _Calendar extends Component {
             containerStyle={{marginRight:10}}
             onPress={() => this.props.navigation.navigate('AddEvent', { addEvent: this.props.addEvent, start: selected })}
           />
-        </View>
+        </FixedFooter>
       </View>
     )
   }
@@ -135,15 +132,6 @@ const styles = StyleSheet.create({
   selectedDayText: {
     color: colors.green,
     fontSize: 16
-  },
-  footer: {
-    // flex: .1,
-    position:'absolute',
-    bottom: 5,
-    width: DEVICE_WIDTH,
-    alignItems:'center',
-    flexDirection:'row',
-    justifyContent:'space-between'
   }
 })
 

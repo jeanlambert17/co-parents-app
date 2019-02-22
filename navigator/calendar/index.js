@@ -1,29 +1,22 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
-import { CalendarScreen, AddEventScreen, EditEventScreen } from '../../screens'
-import { Icon } from 'react-native-elements';
+import { CalendarScreen, CalendarEventAddScreen, CalendarEventEditScreen } from '../../screens'
+import MenuIcon from '../commons/MenuIcon';
 import colors from '../../constants/colors';
 
 export default createStackNavigator({
   Calendar: CalendarScreen,
-  AddEvent: AddEventScreen,
-  EditEvent: EditEventScreen
+  AddEvent: CalendarEventAddScreen,
+  EditEvent: CalendarEventEditScreen
 }, {
   initialRouteName: 'Calendar',
   headerLayoutPreset: 'center',
   defaultNavigationOptions: ({navigation}) => ({
     headerTitleStyle: {
       fontWeight: 'normal',
+      color: colors.headerTitle
     },
-    headerLeft: (
-      <Icon 
-        type="material-community" 
-        name="menu" 
-        color={colors.green} 
-        containerStyle={{marginLeft:10}} 
-        onPress={() => navigation.openDrawer()}
-      />
-    ),
+    headerLeft: <MenuIcon navigation={navigation} />
     // headerRight: <Icon type="simple-line-icon" name="options-vertical" color={colors.green} containerStyle={{marginRight:10}} onPress={() => console.log('On menu press')}/>
   })
 })

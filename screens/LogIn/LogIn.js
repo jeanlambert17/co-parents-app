@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { View, ImageBackground, StyleSheet, Text, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import { DEVICE_WIDTH, DEVICE_HEIGHT } from '../../constants/device';
-import { Input, Logo, LogInButton } from "../../components";
+import { Logo } from "../../components";
+import { Input } from '../../components/Input';
+import { LogInButton } from '../../components/Buttons';
 
 class LogIn extends Component {
 
@@ -64,7 +66,7 @@ class LogIn extends Component {
                   onPress={() => console.log('Forgot password pressed')}
                 >Forgot password?</Text>
               </View>
-              <LogInButton onPress={() => console.log(this.state)} />
+              <LogInButton onPress={() => this.props.navigation.navigate('MainNavigator')} />
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
