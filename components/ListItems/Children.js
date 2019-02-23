@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from 'react-native'
 import { ListItem, Avatar } from 'react-native-elements';
 import commonStyles from './commonStyles';
 import colors from '../../constants/colors';
+import { handleAvatarProps } from '../../utils/handleProps';
 
 export default ({children, onPress}) => (
   <ListItem
@@ -15,7 +16,7 @@ export default ({children, onPress}) => (
           {children.map((child,i) => (
             <Child
               key={i}
-              name={child.firstname}
+              firstname={child.firstname}
               icon={child.icon}
               selected={child.selected}
               onPress={() => onPress(child.id, child.selected)}
@@ -27,22 +28,25 @@ export default ({children, onPress}) => (
   />
 )
 
-const Child = (props) => {
-  const containerStyles = props.selected ? {borderWidth: 2, borderColor:colors.green} : null;
+const Child = ({icon, firstname, selected, onPress}) => {
+  const containerStyles = selected ? {borderWidth: 2, borderColor:colors.green} : null;
+  // const avatarProps = icon === null? { title: props.firstname[0].toUpperCase() } : {source:{uri: props.icon}};
+  const avatarProps = handleAvatarProps(icon,firstname[0].toUpperCase())
   return (
     <View style={styles.childContainer}>
       <Avatar
         containerStyle={containerStyles}
         rounded
-        title={props.name[0].toUpperCase()}
-        source={{uri:props.icon}}
+        {...avatarProps}
+        // title={props.firstname[0].toUpperCase()}
+        // source={{uri:props.icon}}
         editButton={{
           name:'sc-telegram',
           type:'evilicon',
         }}
-        onPress={props.onPress}
+        onPress={onPress}
       />
-      <Text style={styles.childText}>{props.firstname}</Text>
+      <Text style={styles.childText}>{firstname}</Text>
     </View>
   )
 }

@@ -3,21 +3,21 @@ import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native'
 import { ListItem } from 'react-native-elements';
 import colors from '../../constants/colors';
 import moment from 'moment';
+import { handleAvatarProps } from '../../utils/handleProps';
 
 export default class MessageList extends Component {
 
   renderItem(item,i) {
-    const { messages } = item;
+    const { messages, icon, firstname } = item;
+    const leftAvatar = handleAvatarProps(icon,firstname[0].toUpperCase());
+
     return <ListItem
       onPress={() => this.props.navigation.navigate('MessageRoom', {item})}
       Component={TouchableOpacity}
       containerStyle={styles.itemContainer}
       titleStyle={styles.itemTitle}
       key={i}
-      leftAvatar={{
-        source: item.source,
-        title: item.firstname[0].toUpperCase()
-      }}
+      leftAvatar={leftAvatar}
       title={`${item.firstname} ${item.lastname}`}
       titleStyle={{
         color:colors.textDark

@@ -5,6 +5,7 @@ import { Avatar, Icon } from 'react-native-elements';
 import colors from '../../constants/colors';
 import ReloadItem from '../../components/ListItems/Reload';
 import { CurvedBackground } from '../../components/Background';
+import { handleAvatarProps } from '../../utils/handleProps';
 
 export default class MyFamily extends Component {
 
@@ -20,9 +21,12 @@ export default class MyFamily extends Component {
       <CurvedBackground>
       <ScrollView>
         <View style={styles.top}>
-          {children.map((child,i) => (
-             <View style={{alignItems:'center'}} key={i}>
-               <Avatar
+          {children.map((child,i) => {
+            const avatarProps = handleAvatarProps(child.icon,child.firstname[0].toUpperCase());
+            console.log(avatarProps)
+            return (
+              <View style={{alignItems:'center'}} key={i}>
+                <Avatar
                   onPress={() => this.setState({selected:i})}
                   containerStyle={[
                     styles.avatarContainer,
@@ -30,8 +34,9 @@ export default class MyFamily extends Component {
                   ]}
                   size="medium"
                   rounded
-                  source={{uri:child.icon}}
-                  title={child.firstname[0].toUpperCase()}
+                  // source={{uri:child.icon}}
+                  // title={child.firstname[0].toUpperCase()}
+                  {...avatarProps}
                 />
                 <Icon 
                   reverseColor={colors.green}
@@ -47,8 +52,8 @@ export default class MyFamily extends Component {
                   color={colors.green}
                   backgroundColor="black"
                 />
-             </View>
-          ))}
+              </View>
+          )})}
         </View>        
         <View style={styles.body}>
           <Title

@@ -2,6 +2,7 @@ import React from 'react'
 import { View, StyleSheet, Text } from 'react-native';
 import colors from '../../constants/colors';
 import { Avatar } from 'react-native-elements';
+import { handleAvatarProps } from '../../utils/handleProps';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,16 +16,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function HeaderTitle(props) {
+export default function HeaderTitle({icon,firstname,lastname}) {
+  const avatarProps = handleAvatarProps(icon,firstname[0].toUpperCase());
   return (
     <View style={styles.container}>
       <Avatar 
         rounded
-        title={props.firstname[0].toUpperCase()}
-        source={{uri:props.icon}}
+        // title={props.firstname[0].toUpperCase()}
+        // source={{uri:props.icon}}
+        {...avatarProps}
       />
       <Text style={styles.text}>
-        {`${props.firstname} ${props.lastname}`}
+        {`${firstname} ${lastname}`}
       </Text>
     </View>
   );

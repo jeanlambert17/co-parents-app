@@ -7,11 +7,12 @@ import {
 import colors from '../../constants/colors';
 import { DEVICE_WIDTH } from '../../constants/device';
 import { Avatar } from 'react-native-elements';
+import { handleAvatarProps } from '../../utils/handleProps';
 
-export default function CommentEntry({me, ...props}) {
-
-  let shapeStyles = me? styles.triangleCornerRight : styles.triangleCornerLeft;
-
+export default function CommentEntry({me, icon, title, text}) {
+  const shapeStyles = me? styles.triangleCornerRight : styles.triangleCornerLeft;
+  const avatarProps = handleAvatarProps(icon,title);
+  
   return (
     <View style={{
       marginLeft: 10,
@@ -21,15 +22,16 @@ export default function CommentEntry({me, ...props}) {
     }}>
       <Avatar
         rounded
-        source={{uri:props.icon}}
-        title={props.title}
+        // source={{uri:props.icon}}
+        // title={props.title}
+        {...avatarProps}
       />
       <View style={[styles.talkBubble, {
         marginLeft: me? 0 : 15,
         marginRight: me? 15 : 0
       }]}>
         <View style={[styles.talkBubbleSquare, {backgroundColor: me? '#eaeaea':colors.green}]}>
-          <Text style={[styles.text, {color: me? colors.grayDark : 'white'}]}>{props.text}</Text>
+          <Text style={[styles.text, {color: me? colors.grayDark : 'white'}]}>{text}</Text>
         </View>
         <View 
           style={shapeStyles}

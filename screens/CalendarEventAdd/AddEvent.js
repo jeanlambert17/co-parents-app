@@ -89,7 +89,7 @@ export default class AddEvent extends Component {
 
   render() {
     const { name, allDay, start, end, location, note, children, isPrivate, interval } = this.state;
-    console.log(this.props.events)
+    
     return (
       <ScrollView style={styles.container}>
         {/* Name field */}

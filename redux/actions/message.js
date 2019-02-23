@@ -6,7 +6,7 @@ const INITIAL_STATE = {
     id: 0,
     firstname: 'John',
     lastname: 'Elio',
-    icon: null,
+    icon: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
     messages: [{
       me: true,
       text: 'Hello, how are you?',

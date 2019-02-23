@@ -5,9 +5,12 @@ import { Avatar, Icon } from 'react-native-elements';
 import colors from '../../constants/colors';
 import ReloadItem from '../../components/ListItems/Reload';
 import { CurvedBackground } from '../../components/Background';
+import { handleAvatarProps } from '../../utils/handleProps';
 
 export default class Profile extends Component {
   render() {
+    const avatarProps = handleAvatarProps(null, 'J');
+
     return (
       <CurvedBackground>
         <View style={styles.top}>
@@ -16,8 +19,9 @@ export default class Profile extends Component {
             containerStyle={styles.avatarContainer}
             size="medium"
             rounded
-            source={{uri:null}}
-            title="J"
+            // source={{uri:null}}
+            // title="J"
+            {...avatarProps}
           />
           <Icon 
             reverseColor={colors.green}
