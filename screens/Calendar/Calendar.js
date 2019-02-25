@@ -10,7 +10,7 @@ class _Calendar extends React.PureComponent {
 
   state = {
     selected: {},
-    selectedEvent: null,
+    selectedEvent: {},
     markedDates: {}
   }
 
@@ -60,8 +60,8 @@ class _Calendar extends React.PureComponent {
   render() {
     const { selected, markedDates } = this.state;
     const { events } = this.props;
-    let selectedDay = events.find(evt => evt.start.date === selected.dateString);    
-    selectedDay = {[selected.dateString]: { selected: true, periods: selectedDay === undefined ? null : [{startingDay:true, endingDay:true, color:colors.green}]}}
+    let selectedDay = events.find(evt => evt.start.date === selected.dateString);
+    selectedDay = {[selected.dateString]: { selected: true, periods: selectedDay === undefined ? {} : [{startingDay:true, endingDay:true, color:colors.green}]}}
     const filteredEvents = events.filter(evt => evt.start.date === selected.dateString)
     
     return (
