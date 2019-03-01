@@ -27,7 +27,12 @@ class SignUp extends Component {
         enabled
       >
         <ScrollView>
-          <Logo containerStyle={styles.logoContainer} logoHeight={100} width={100} iconStyle={{marginBottom: -10}}/>
+          <Logo 
+            containerStyle={styles.logoContainer} 
+            logoHeight={100} 
+            width={100} 
+            iconStyle={{marginBottom: -10}}
+          />
           <View style={styles.signUpContainer}>
             <Input
               containerStyle={styles.inputContainer}

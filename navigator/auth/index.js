@@ -7,8 +7,11 @@ import colors from '../../constants/colors';
 export default createStackNavigator(
   {
     WelcomeScreen: {
-      screen: WelcomeScreen
-    },    
+      screen: WelcomeScreen,
+      navigationOptions: ({navigation}) => ({
+        header: null
+      })
+    },
     SignUpScreen: {
       screen: SignUpScreen
     },

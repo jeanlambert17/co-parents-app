@@ -1,7 +1,15 @@
 import React from 'react'
-import { StyleSheet, Image, View } from 'react-native'
-import { DEVICE_WIDTH, DEVICE_HEIGHT } from '../../constants/device';
+import { 
+  StyleSheet, 
+  Image, 
+  View, 
+  Dimensions 
+} from 'react-native'
 
+// Constants
+const { height, width } = Dimensions.get('window');
+
+// Functional component
 const Logo = ({ width, logoHeight, textHeight, containerStyle, iconStyle }) => {
   return (
     <View style={[styles.container, containerStyle]}>
@@ -18,12 +26,14 @@ const Logo = ({ width, logoHeight, textHeight, containerStyle, iconStyle }) => {
   );
 }
 
+// Default props
 Logo.defaultProps = {
-  width: DEVICE_WIDTH * 0.5,
-  logoHeight: DEVICE_HEIGHT * 0.3,
-  textHeight: DEVICE_HEIGHT * 0.1
+  width: width * 0.5,
+  logoHeight: height * 0.3,
+  textHeight: height * 0.1
 }
 
+// Styles
 const styles = StyleSheet.create({
   container: {
     marginTop: 5

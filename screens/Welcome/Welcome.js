@@ -1,60 +1,37 @@
+// Modules
 import React, { Component } from 'react'
-import { StyleSheet, View, ImageBackground } from 'react-native';
-import { Logo } from '../../components'
-import { Button } from '../../components/Buttons';
-import { DEVICE_HEIGHT } from '../../constants/device';
+import { 
+  StyleSheet, 
+  View, 
+  ImageBackground,
+  Dimensions
+} from 'react-native';
+// Reusable components
+import Logo from '../../components/Logo';
+// Scene's components
+import FacebookButton from './components/FacebookButton';
+import EmailButton from './components/EmailButton';
+import SignUpButton from './components/SignUpButton';
 
+// Constants
+const height = Dimensions.get('window').height;
+
+// Class component
 class Welcome extends Component {
-
-  static navigationOptions = {
-    header: null
-  };
-
   render() {
     return (
       <ImageBackground source={require('../../assets/background_empty.png')} style={styles.background} resizeMode="stretch">
-        <Logo containerStyle={styles.logoContainer} />
+        <Logo 
+          containerStyle={styles.logoContainer}
+        />
         <View style={styles.options}>
-          <Button 
-            title="Log in with Facebook"
-            color="#395692"
-            iconProps={{
-              type:"entypo",
-              name:"facebook",
-              size: 20,
-              color: 'white',
-              marginLeft: 5
-            }}
-            containerStyle={styles.buttonContainer}
+          <FacebookButton
             onPress={() => console.log('facebook')}
           />
-          <Button
-            title="Log in with email"
-            iconType="MaterialIcons"
-            iconName="email"
-            iconProps={{
-              type:"MaterialIcons",
-              name:"email",
-              size: 20,
-              color: 'white',
-              marginLeft: 5
-            }}
-            color="#EE3737"
-            containerStyle={styles.buttonContainer}
+          <EmailButton 
             onPress={() => this.props.navigation.navigate('LogInScreen')}
           />
-          <Button 
-            title="Sign up"
-            color="#EDEDED"
-            iconProps={{
-              type:"font-awesome",
-              name:"user-plus",
-              size: 20,
-              color:"#4E504D",
-              marginLeft: 5
-            }}
-            containerStyle={styles.buttonContainer}
-            titleStyle={styles.buttonTitle}
+          <SignUpButton 
             onPress={() => this.props.navigation.navigate('SignUpScreen')}
           />
         </View>
@@ -63,6 +40,7 @@ class Welcome extends Component {
   }
 }
 
+// Styles
 const styles = StyleSheet.create({
   background: {
     flex: 1,
@@ -72,18 +50,12 @@ const styles = StyleSheet.create({
   options: {
     flex: 1,
     alignItems:'center',
-    marginTop: DEVICE_HEIGHT * 0.1
+    marginTop: height * 0.1
   },
   logoContainer: {
     marginTop: 25,
     alignItems: 'center'
-  },
-  buttonContainer: {
-    marginBottom: 15
-  },
-  buttonTitle: {
-    color: '#515450'
   }
-})
+});
 
 export default Welcome;
