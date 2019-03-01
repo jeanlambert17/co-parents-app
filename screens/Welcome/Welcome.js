@@ -13,7 +13,7 @@ import FacebookButton from './components/FacebookButton';
 import EmailButton from './components/EmailButton';
 import SignUpButton from './components/SignUpButton';
 
-// Constants
+// Variables
 const height = Dimensions.get('window').height;
 
 // Class component
