@@ -1,3 +1,9 @@
 import SignUp from './SignUp';
+import { connect } from 'react-redux';
+import { setUser } from '../../redux/actions/user';
 
-export default SignUp;
+const mapDispatchToProps = dispatch => ({
+  setUser: user => dispatch(setUser(user))
+});
+
+export default connect(null,mapDispatchToProps)(SignUp);

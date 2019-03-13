@@ -24,19 +24,19 @@ export default createStackNavigator(
     AddCoParentScreen: {
       screen: AddCoParentScreen
     },
-    CalendarScreen: {
-      screen: CalendarScreen
-    },
-    CoParentInvite: {
-      screen: CoParentInviteScreen,
-      navigationOptions: {
-        title: 'Invite Co-Parent',
-        headerTitleStyle: {
-          fontWeight: 'normal',
-          color: colors.headerTitle
-        }
-      }
-    }
+    // CalendarScreen: {
+    //   screen: CalendarScreen
+    // },
+    // CoParentInvite: {
+    //   screen: CoParentInviteScreen,
+    //   navigationOptions: {
+    //     title: 'Invite Co-Parent',
+    //     headerTitleStyle: {
+    //       fontWeight: 'normal',
+    //       color: colors.headerTitle
+    //     }
+    //   }
+    // }
   },{
     initialRouteName: 'WelcomeScreen',
     headerLayoutPreset: 'center',

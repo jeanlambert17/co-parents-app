@@ -5,8 +5,22 @@ import { Button } from '../../components/Buttons';
 import { DEVICE_WIDTH } from '../../constants/device';
 import { FamilyBackground } from '../../components/Background';
 import colors from '../../constants/colors';
+import Loading from '../../components/Loading/loading';
+import { fillForm } from '../../api/auth';
+import MessageHandler from '../../utils/MessageHandler';
 
 class AddCoParent extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading:false,
+      firstname:'',
+      lastname:'',
+      children: [],
+    }
+    this.messageHandler = new MessageHandler();
+  }
 
   static navigationOptions = {
     title: 'Add co-parent info',
@@ -19,16 +33,34 @@ class AddCoParent extends Component {
     },
   };
 
-  state = {
-    firstname:'',
-    lastname:''
+  componentDidMount() {
+    const children = this.props.navigation.getParam('children', []);
+    this.setState({children});
   }
 
+  handleConfirm = async () => {
+    this.setState({ loading: true });
+    let data = null;
+    try {
+      data = await fillForm(this.props.user.id, this.state.children, { firstname: this.state.firstname, lastname: this.state.lastname });
+    } catch(err) {
+      this.messageHandler.errorMessage(err.message || err);
+    } finally {
+      this.setState({loading:false});
+    }
+    if(data) {
+      console.log(data);
+      this.props.setChildren(data.children);
+      this.props.setCoParents(data.coParents);
+      this.props.navigation.navigate('MainNavigator');
+    }
+  }
   render() {
 
     return (
       <FamilyBackground>
       <View style={styles.container}>
+        <Loading isVisible={this.state.loading} />
         <FieldInput
           placeholder="First Name"
           textContentType="name"
@@ -53,7 +85,7 @@ class AddCoParent extends Component {
           buttonStyle={styles.buttonStyle}
           containerStyle={styles.buttonContainer}
           titleStyle={styles.buttonTitle}
-          onPress={() => this.props.navigation.navigate('MainNavigator')}
+          onPress={this.handleConfirm}
         />
       </View>
       </FamilyBackground>

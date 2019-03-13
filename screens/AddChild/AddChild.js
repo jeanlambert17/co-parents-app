@@ -62,8 +62,7 @@ class AddChild extends Component {
       navigation.navigate('AddCoParentScreen');
     } else {
       children = [{firstname,lastname}, ...children];
-      children.forEach(child => this.props.addChild({...child, icon: null, id: Math.random() * 100000}));
-      navigation.navigate('AddCoParentScreen');
+      navigation.navigate('AddCoParentScreen', { children });
     }
   }
 

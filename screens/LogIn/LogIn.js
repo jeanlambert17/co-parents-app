@@ -5,24 +5,56 @@ import { DEVICE_WIDTH, DEVICE_HEIGHT } from '../../constants/device';
 import { Logo } from "../../components";
 import { Input } from '../../components/Input';
 import { LogInButton } from '../../components/Buttons';
+import Loading from '../../components/Loading/loading';
+import { loginWithEmailAndPassword } from '../../api/auth';
+import { emptyFields } from '../../utils/emptyFields';
+import MessageHandler from '../../utils/MessageHandler';
 
 class LogIn extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      checked: true,
+      loading: false,
+      email: '',
+      password: '',
+    }
+    this.messageHandler = new MessageHandler();
+  }
 
   static navigationOptions = {
     title: 'Log in',
   };
 
-  state = {
-    checked: true,
-    email: '',
-    password: '',
-  }
 
   handleChecked = () => this.setState({ checked: !this.state.checked });
 
+  handleLogin = async () => {
+    let user = null;
+    this.setState({loading:true});
+    try {
+      user = await loginWithEmailAndPassword(this.state.email,this.state.password);
+    } catch(err) {
+      this.messageHandler.errorMessage(err.message || err);
+    } finally {
+      this.setState({loading:false});
+    }
+    if(user) {
+      console.log(user);
+      this.props.setUser(user);
+      this.props.navigation.navigate('MainNavigator');
+    }
+  }
+
   render() {
+    const disabled = emptyFields(['email','password',], this.state);
+
     return (
       <ImageBackground source={require('../../assets/background_empty.png')} style={styles.background} resizeMode="stretch">
+        <Loading 
+          isVisible={this.state.loading}
+        />
         <KeyboardAvoidingView enabled style={{flex:1}}>
           <ScrollView>
             <Logo containerStyle={{alignItems:'center'}}/>
@@ -66,7 +98,10 @@ class LogIn extends Component {
                   onPress={() => console.log('Forgot password pressed')}
                 >Forgot password?</Text>
               </View>
-              <LogInButton onPress={() => this.props.navigation.navigate('MainNavigator')} />
+              <LogInButton 
+                onPress={this.handleLogin} 
+                disabled={disabled}
+              />
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
