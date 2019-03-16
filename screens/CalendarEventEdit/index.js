@@ -2,8 +2,9 @@ import { connect } from 'react-redux';
 import EditEventScreen from './EditEvent';
 import { removeEvent, setEvent } from '../../redux/actions/event';
 
-const mapStateToProps = ({child}) => ({
+const mapStateToProps = ({child, user }) => ({
   children: child.children,
+  user: user.user
 })
 const mapDispatchToProps = dispatch => ({
   removeEvent: (id) => dispatch(removeEvent(id)),

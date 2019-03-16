@@ -6,12 +6,21 @@ import colors from '../../constants/colors';
 import EventList from './EventList';
 import { FixedFooter } from '../../components/Footers';
 import { OptionButton } from '../../components/Buttons';
-class _Calendar extends React.PureComponent {
+import { createEvent, updateEvent } from '../../api/event';
+import MessageHandler from '../../utils/MessageHandler';
+import Loading from '../../components/Loading/loading';
+import { getBasicData } from '../../api/auth';
 
-  state = {
-    selected: {},
-    selectedEvent: {},
-    markedDates: {}
+class _Calendar extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: {},
+      selectedEvent: {},
+      markedDates: {},
+      loading: false
+    }
+    this.messageHandler = new MessageHandler();
   }
 
   componentDidMount() {
@@ -23,7 +32,8 @@ class _Calendar extends React.PureComponent {
         year: date.getFullYear(),
         dateString: date.toISOString().slice(0,10)
       }
-    })
+    });
+    this.refreshMarkedDays();
   }
 
   static navigationOptions = {
@@ -39,7 +49,6 @@ class _Calendar extends React.PureComponent {
 
   handleOnDayPress = (day) => {
     this.setState({selected: day});
-    console.log(day);
   }
 
   refreshMarkedDays() {      
@@ -57,15 +66,40 @@ class _Calendar extends React.PureComponent {
     this.setState({markedDates})
   }
 
+  handleAddEvent = async () => {
+    this.setState({loading:true});
+    const [data,err] = await createEvent(this.props.user.id, this.props.event);
+    this.setState({loading:false});
+    if(err) {
+      this.messageHandler.errorMessage(err);
+      return;
+    }
+    this.props.addEvent(data);
+  }
+
+  handleEditEvent = async () => {
+    this.setState({loading:true});
+    const [id,err] = await updateEvent(this.props.user.id, this.props.event);
+    this.setState({loading:false});
+    if(err) {
+      this.messageHandler.errorMessage(err);
+      return;
+    }
+    this.props.updateEvent();
+  }
+
   render() {
-    const { selected, markedDates } = this.state;
+    const { selected, markedDates, loading } = this.state;
     const { events } = this.props;
     let selectedDay = events.find(evt => evt.start.date === selected.dateString);
     selectedDay = {[selected.dateString]: { selected: true, periods: selectedDay === undefined ? {} : [{startingDay:true, endingDay:true, color:colors.green}]}}
     const filteredEvents = events.filter(evt => evt.start.date === selected.dateString)
+
+    console.log(events);
     
     return (
-      <View style={{flex: 1}}>      
+      <View style={{flex: 1}}>
+        <Loading isVisible={loading} />
         <Calendar
           markedDates={{
             ...markedDates,
@@ -100,7 +134,7 @@ class _Calendar extends React.PureComponent {
             color="#e0e0e0"
             reverseColor={colors.green}
             containerStyle={{marginLeft:10}}
-            onPress={() => this.props.navigation.navigate('EditEvent', { updateEvent: this.props.updateEvent, event: this.state.selectedEvent})}
+            onPress={() => this.props.navigation.navigate('EditEvent', { updateEvent: this.handleEditEvent, event: this.state.selectedEvent})}
           />
           <Icon
             raised
@@ -110,7 +144,7 @@ class _Calendar extends React.PureComponent {
             size={18}
             color="#24bfff"
             containerStyle={{marginRight:10}}
-            onPress={() => this.props.navigation.navigate('AddEvent', { addEvent: this.props.addEvent, start: selected })}
+            onPress={() => this.props.navigation.navigate('AddEvent', {addEvent:this.handleAddEvent, start:selected})}
           />
         </FixedFooter>
       </View>

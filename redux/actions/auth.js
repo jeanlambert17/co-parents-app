@@ -3,7 +3,7 @@ import { SET_TOKEN, SET_TYPE } from '../const/auth';
 
 const INITIAL_STATE = {
   token: '',
-  loginType: ''
+  loginType: 'normal'
 }
 
 export const authReducer = createReducer(INITIAL_STATE, {
@@ -21,16 +21,10 @@ export const setType = type => ({
   loginType: type
 });
 
-export const setFacebookType = token => {
-  return dispatch => {
-    dispatch(setType('FACEBOOK'));
-    dispatch(setToken(token));
-  }
+export const setFacebookType = () => {
+  return setType('facebook');
 }
 
 export const setNormalType = token => {
-  return dispatch => {
-    dispatch(setType('NORMAL'));
-    dispatch(setToken(token));
-  }
+  return setType('normal');
 }

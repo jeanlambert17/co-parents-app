@@ -6,20 +6,32 @@ import commonStyles from './commonStyles';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 export default class RangeItem extends Component {
   state = {
-    isDateTimePickerVisible: false,
+    isTimePickerVisible: false,
+    isDatePickerVisible: false,
   };
+  _showTimePicker = () => this.setState({ isTimePickerVisible: true });
+  _hideTimePicker = () => this.setState({ isTimePickerVisible: false });
+  _showDatePicker = () => this.setState({ isDatePickerVisible: true });
+  _hideDatePicker = () => this.setState({ isDatePickerVisible: false });
 
-  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
-
-  _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
-
-  _handleDatePicked = (date) => {
+  _handleTimePicked = (date) => {
     console.log('A date has been picked: ', date);
     this.props.onHourChange({
       date: this.props.datetime.date,
       hour: `${(date.hour <= 12)? ((date.hour < 10)? '0' + date.hour : date.hour) : date.hour - 12}:${(date.minute < 10)? '0' + date.minute : date.minute} ${(date.hour < 12)? 'AM' : 'PM'}`
     })
-    this._hideDateTimePicker();
+    this._hideTimePicker();
+  };
+  _handleDatePicked = (date) => {
+    console.log('A date has been picked: ', date);
+    let x = new Date(date);
+    const month = x.getMonth() + 1;
+    const day = x.getDate();
+    this.props.onHourChange({
+      date: `${x.getFullYear()}-${month < 11 ? '0' + month : month}-${day < 11 ? '0' + day : day}`,
+      hour: this.props.datetime.hour
+    })
+    this._hideDatePicker();
   };
 
   render() {
@@ -31,22 +43,26 @@ export default class RangeItem extends Component {
           <View style={[commonStyles.container, styles.container]}>
             <Text style={commonStyles.text}>{this.props.title}</Text>
             <View style={styles.textViews}>
-              <View style={styles.dateContainer}>
+              <TouchableOpacity onPress={this._showDatePicker} style={[styles.dateContainer]}>
                 <Text style={styles.smallText}>Date:</Text>
                 <Text>{this.props.datetime.date}</Text>
-              </View>
-              <TouchableOpacity onPress={this._showDateTimePicker} style={[styles.dateContainer, styles.hourContainer]}>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this._showTimePicker} style={[styles.dateContainer, styles.hourContainer]}>
                 <Text style={styles.smallText}>Hour:</Text>
                 <Text>{this.props.datetime.hour}</Text>
-                {/* <TextInput style={{height: 20}}>
-                </TextInput> */}
               </TouchableOpacity>
             </View>
             <DateTimePicker
               mode="time"
-              isVisible={this.state.isDateTimePickerVisible}
+              isVisible={this.state.isTimePickerVisible}
+              onConfirm={this._handleTimePicked}
+              onCancel={this._hideTimePicker}
+            />
+            <DateTimePicker
+              mode="date"
+              isVisible={this.state.isDatePickerVisible}
               onConfirm={this._handleDatePicked}
-              onCancel={this._hideDateTimePicker}
+              onCancel={this._hideDatePicker}
             />
           </View>
         }

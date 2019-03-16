@@ -9,8 +9,7 @@ export default StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
-    alignItems:'center',
-    // height: 50
+    alignItems:'center'
   },
   text: {
     paddingBottom:2.5,

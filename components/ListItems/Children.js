@@ -30,8 +30,7 @@ export default ({children, onPress}) => (
 
 const Child = ({icon, firstname, selected, onPress}) => {
   const containerStyles = selected ? {borderWidth: 2, borderColor:colors.green} : null;
-  // const avatarProps = icon === null? { title: props.firstname[0].toUpperCase() } : {source:{uri: props.icon}};
-  const avatarProps = handleAvatarProps(icon,firstname[0].toUpperCase())
+  const avatarProps = handleAvatarProps(icon,firstname[0].toUpperCase());
   return (
     <View style={styles.childContainer}>
       <Avatar

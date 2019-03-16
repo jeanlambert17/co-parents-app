@@ -17,8 +17,8 @@ class LogIn extends Component {
     this.state = {
       checked: true,
       loading: false,
-      email: '',
-      password: '',
+      email: '', // 'jeanxd17@hotmail.com',
+      password: '' //'123456',
     }
     this.messageHandler = new MessageHandler();
   }
@@ -31,18 +31,18 @@ class LogIn extends Component {
   handleChecked = () => this.setState({ checked: !this.state.checked });
 
   handleLogin = async () => {
-    let user = null;
+    let data = null;
     this.setState({loading:true});
     try {
-      user = await loginWithEmailAndPassword(this.state.email,this.state.password);
+      data = await loginWithEmailAndPassword(this.state.email,this.state.password);
     } catch(err) {
       this.messageHandler.errorMessage(err.message || err);
     } finally {
       this.setState({loading:false});
     }
-    if(user) {
-      console.log(user);
-      this.props.setUser(user);
+    if(data) {
+      this.props.setUser(data.user);
+      this.props.setData(data.info);
       this.props.navigation.navigate('MainNavigator');
     }
   }

@@ -6,3 +6,4 @@ export {default as RangeItem} from './Range';
 export {default as SwitchItem} from './Switch';
 export {default as TextItem} from './Text';
 export {default as RealoadItem} from './Reload';
+export {default as SelectItem} from './Select'

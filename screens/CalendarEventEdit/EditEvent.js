@@ -8,14 +8,18 @@ import ChevronItem from '../../components/ListItems/Chevron';
 import RangeItem from '../../components/ListItems/Range';
 import ChildrenItem from '../../components/ListItems/Children';
 import DeleteItem from '../../components/ListItems/Delete';
+import SelectItem from '../../components/ListItems/Select';
+import Loading from '../../components/Loading/loading';
+import { deleteEvent } from '../../api/event';
+import MessageHandler from '../../utils/MessageHandler';
+import { intervalList, frequencyList } from '../../constants/list';
 
 export default class EditEvent extends Component {
 
   componentDidMount() {
     const event = this.props.navigation.getParam('event', null);
     if (null) this.props.navigation.goBack();
-    this.setState({...event})
-    console.log(event)
+    this.setState({...event});
   }
 
   static navigationOptions = ({navigation}) => ({
@@ -26,7 +30,7 @@ export default class EditEvent extends Component {
         name="check"
         color={colors.green}
         containerStyle={{marginRight:10}}
-        onPress={() => {navigation.getParam('updateEvent', null)(); navigation.goBack()}}
+        onPress={() => {navigation.goBack(); navigation.getParam('updateEvent', null)()}}
       />
     ),
     headerLeft: (
@@ -43,6 +47,7 @@ export default class EditEvent extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      loading: false,
       id: -1,
       name:'',
       allDay: false,
@@ -57,10 +62,11 @@ export default class EditEvent extends Component {
       location:'',
       children:[],
       note:'',
-      // repeat:'',
+      repeat:'',
       isPrivate:false,
       interval:'',
     }
+    this.messageHandler = new MessageHandler();
   }
 
   handleChange = (prop) => {
@@ -83,13 +89,18 @@ export default class EditEvent extends Component {
     this.props.setEvent(state);
   }
 
-  handleRemove = () => {
-    this.props.removeEvent(this.state.id);
+  handleRemove = async () => {
+    const [id,err] = await deleteEvent(this.props.user.id, this.state.id);
+    if(err) {
+      this.messageHandler(err);
+      return;
+    }
+    this.props.removeEvent(id);
     this.props.navigation.goBack();
   }
 
   render() {
-    const { name, allDay, start, end, location, note, children, isPrivate, interval } = this.state;
+    const { name, allDay, start, end, location, note, children, isPrivate, interval, loading, repeat } = this.state;
     return (
       <ScrollView style={styles.container}>
        {/* Name field */}
@@ -137,8 +148,11 @@ export default class EditEvent extends Component {
           title="Note: "
         />
         {/* Repeat */}
-        <ChevronItem 
-          title="Repeat:"
+        <SelectItem 
+          value={repeat}
+          onValueChange={(repeat) => this.handleChange({repeat})}
+          values={frequencyList}
+          title="Repeat: "
         />
         {/* Private */}
         <SwitchItem
@@ -147,10 +161,10 @@ export default class EditEvent extends Component {
           onPress={(isPrivate) => this.handleChange({isPrivate})}
         />
         {/* Interval */}
-        <TextItem 
-          value={interval} 
-          onChangeText={(interval) => this.handleChange({interval})}
-          placeholder=""
+        <SelectItem 
+          value={interval}
+          onValueChange={(interval) => this.handleChange({interval})}
+          values={intervalList}
           title="Interval: "
         />
         {/* Delete */}
@@ -158,6 +172,7 @@ export default class EditEvent extends Component {
           title="Delete Event"
           onPress={this.handleRemove}
         />
+        <Loading isVisible={loading} />
       </ScrollView>
     )
   }

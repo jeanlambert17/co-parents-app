@@ -3,7 +3,7 @@ import MessageList from './MessageList';
 // import { orderAlphabetically } from '../../redux/actions/contact';
 
 const mapStateToProps = ({ message }) => ({
-  conversations: message.conversations
+  chats: message.chats
 })
 
 export default connect(mapStateToProps)(MessageList);

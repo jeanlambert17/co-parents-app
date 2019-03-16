@@ -6,10 +6,6 @@ import {
   ImageBackground,
   Dimensions
 } from 'react-native';
-import { 
-  LoginManager, 
-  AccessToken
-} from 'react-native-fbsdk';
 // Reusable components
 import Logo from '../../components/Logo';
 // Scene's components
@@ -47,6 +43,7 @@ class Welcome extends Component {
     if (user.lastSignInTime == null) {
       this.props.navigation.navigate('AddChildScreen');
     } else {
+      this.props.setData(data.info);
       this.props.navigation.navigate('MainNavigator');
     }
   }

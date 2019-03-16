@@ -2,7 +2,7 @@ import { createReducer } from "../../utils/reduxHelpers";
 import { ADD_MESSAGE } from '../const/message';
 
 const INITIAL_STATE = {
-  conversations: [{
+  chats: [{
     id: 0,
     firstname: 'John',
     lastname: 'Elio',
@@ -54,7 +54,7 @@ const INITIAL_STATE = {
 }
 
 export const messageReducer = createReducer(INITIAL_STATE, {
-  [ADD_MESSAGE]: (state,action) => ({...state, conversations: state.conversations.map(c => c.id === action.id ? { ...c, messages: [...c.messages, action.message]} : c)}),
+  [ADD_MESSAGE]: (state,action) => ({...state, chats: state.chats.map(c => c.id === action.id? {...c, messages: [...c.messages, action.message]} : c)}),
 });
 
 export const addMessage = (id,message) => ({

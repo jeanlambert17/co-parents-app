@@ -1,3 +1,7 @@
 export const handleAvatarProps = (icon, title) => {
-  return icon !== null? { source: { uri: icon }} : { title };
+  if(icon !== null && icon !== undefined) {
+    return { source: { uri: icon }};
+  } else {
+    return { title }
+  }
 }

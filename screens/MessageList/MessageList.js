@@ -7,6 +7,7 @@ import { handleAvatarProps } from '../../utils/handleProps';
 
 export default class MessageList extends Component {
 
+
   renderItem(item,i) {
     const { messages, icon, firstname } = item;
     const leftAvatar = handleAvatarProps(icon,firstname[0].toUpperCase());
@@ -32,10 +33,11 @@ export default class MessageList extends Component {
   }
 
   render() {
-    console.log(this.props.conversations)
     return (
-      <ScrollView contentContainerStyle={styles.container}>
-        {this.props.conversations.map((c,i) => this.renderItem(c,i))}
+      <ScrollView 
+        contentContainerStyle={styles.container}
+      >
+        {this.props.chats.map((c,i) => this.renderItem(c,i))}
       </ScrollView>
     )
   }

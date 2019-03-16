@@ -3,9 +3,12 @@ package com.coparents;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import com.imagepicker.ImagePickerPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
 import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
+import io.invertase.firebase.storage.RNFirebaseStoragePackage;
 
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -35,12 +38,15 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFetchBlobPackage(),
+            new ImagePickerPackage(),
               new RNFirebasePackage(),
               new RNGestureHandlerPackage(),
               new VectorIconsPackage(),
               new FBSDKPackage(mCallbackManager),
               new RNFirebaseFirestorePackage(),
-              new RNFirebaseAuthPackage()
+              new RNFirebaseAuthPackage(),
+              new RNFirebaseStoragePackage()
       );
     }
 

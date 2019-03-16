@@ -7,6 +7,8 @@ import SwitchItem from '../../components/ListItems/Switch';
 import ChevronItem from '../../components/ListItems/Chevron';
 import RangeItem from '../../components/ListItems/Range';
 import ChildrenItem from '../../components/ListItems/Children';
+import SelectItem from '../../components/ListItems/Select';
+import { intervalList, frequencyList } from '../../constants/list';
 
 
 export default class AddEvent extends Component {
@@ -20,7 +22,7 @@ export default class AddEvent extends Component {
         color={colors.green}
         containerStyle={{marginRight:10}}
         underlayColor={colors.textLight}
-        onPress={() => {navigation.getParam('addEvent', null)(); navigation.goBack()}}
+        onPress={() => {navigation.goBack(); navigation.getParam('addEvent', null)()}}
       />
     ),
     headerLeft: (
@@ -61,7 +63,7 @@ export default class AddEvent extends Component {
       location:'',
       children:[],
       note:'',
-      // repeat:'',
+      repeat:'',
       isPrivate:false,
       interval:'',
     }
@@ -88,7 +90,9 @@ export default class AddEvent extends Component {
   }
 
   render() {
-    const { name, allDay, start, end, location, note, children, isPrivate, interval } = this.state;
+    const { name, allDay, start, end, location, note, children, isPrivate, interval, repeat } = this.state;
+
+    console.log(this.state);
     
     return (
       <ScrollView style={styles.container}>
@@ -137,8 +141,11 @@ export default class AddEvent extends Component {
           title="Note: "
         />
         {/* Repeat */}
-        <ChevronItem 
-          title="Repeat:"
+        <SelectItem 
+          value={repeat}
+          onValueChange={(repeat) => this.handleChange({repeat})}
+          values={frequencyList}
+          title="Repeat: "
         />
         {/* Private */}
         <SwitchItem
@@ -147,10 +154,11 @@ export default class AddEvent extends Component {
           onPress={(isPrivate) => this.handleChange({isPrivate})}
         />
         {/* Interval */}
-        <TextItem 
-          value={interval} 
-          onChangeText={(interval) => this.handleChange({interval})}
+        <SelectItem 
+          value={interval}
+          onValueChange={(interval) => this.handleChange({interval})}
           placeholder=""
+          values={intervalList}
           title="Interval: "
         />
       </ScrollView>

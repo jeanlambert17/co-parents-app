@@ -3,8 +3,9 @@ import { ActivityIndicator } from 'react-native'
 import { Overlay } from 'react-native-elements';
 import colors from '../../constants/colors';
 
-export default ({ isVisible }) => (
+export default ({ isVisible, onBackdropPress }) => (
   <Overlay
+    onBackdropPress={onBackdropPress}
     isVisible={isVisible}
     windowBackgroundColor="rgba(255, 255, 255, .5)"
     width="auto"
