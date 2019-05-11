@@ -3,12 +3,12 @@ import { View, ImageBackground, StyleSheet, Text, KeyboardAvoidingView, ScrollVi
 import { CheckBox } from 'react-native-elements';
 import { DEVICE_WIDTH, DEVICE_HEIGHT } from '../../constants/device';
 import { Logo } from "../../components";
-import { Input } from '../../components/Input';
-import { LogInButton } from '../../components/Buttons';
+import { Input } from '../../components/input';
+import { LogInButton } from '../../components/button';
 import Loading from '../../components/Loading/loading';
 import { loginWithEmailAndPassword } from '../../api/auth';
-import { emptyFields } from '../../utils/emptyFields';
-import MessageHandler from '../../utils/MessageHandler';
+import { emptyFields } from '../../utils/empty-fields';
+import MessageHandler from '../../utils/message-handler';
 
 class LogIn extends Component {
 

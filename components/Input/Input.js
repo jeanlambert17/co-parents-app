@@ -1,9 +1,32 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
-import { Input, Icon, Text } from 'react-native-elements';
-import { DEVICE_WIDTH } from "../../constants/device";
+import React from 'react';
+import { 
+  StyleSheet, 
+  View,
+  Dimensions
+} from 'react-native';
+import { 
+  Input, 
+  Icon, 
+  Text 
+} from 'react-native-elements';
 
-const _Input = ({ icon, color, borderColor, iconProps, containerStyle, iconContainerStyle, inputStyles, rightIcon: RightIcon, rightIconProps, error, errorMessage, outSideContainerStyles, ...props }) => (
+const DEVICE_WIDTH = Dimensions.get('window').width;
+
+const _Input = ({ 
+  icon, 
+  color, 
+  borderColor, 
+  iconProps, 
+  containerStyle, 
+  iconContainerStyle, 
+  inputStyles, 
+  rightIcon: RightIcon, 
+  rightIconProps, 
+  error, 
+  errorMessage, 
+  outSideContainerStyles, 
+  ...props 
+}) => (
   <View style={outSideContainerStyles}>
     <Input
       {...props}
@@ -42,16 +65,13 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: 2,
     borderRadius: 12.5,
-    width: DEVICE_WIDTH * 0.80,
-    // borderColor: 'white',
-    // paddingVertical: 5,
+    width: DEVICE_WIDTH * 0.80
   },
   inputContainer: {
     borderBottomWidth: 0,
   },
   input: {
-    marginLeft: 7.5,
-    // color: 'white',
+    marginLeft: 7.5
   },
   iconContainer: {
     marginLeft: 0,

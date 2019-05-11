@@ -1,4 +1,4 @@
-import Calendar from './Calendar';
+import Calendar from './calendar';
 import { connect } from 'react-redux';
 import { addEvent, updateEvent, setEvent, removeEvent, setEvents } from '../../redux/actions/event';
 import { setChildren } from '../../redux/actions/child';

@@ -56,7 +56,7 @@ export const orderAlphabetically = (contacts) => {
     if(a.firstname > b.firstname) 
       return 1;
     return 0;
-  })
+  });
   _contacts.forEach(c => {
     const letter = c.firstname[0].toUpperCase();
     grouped = {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
-import { ContactListScreen, ContactListAddScreen, ContactListEditScreen } from '../../screens'
-import MenuIcon from '../commons/MenuIcon';
-import OptionIcon from '../commons/OptionIcon';
+import { ContactListScreen, ContactAddScreen, ContactEditScreen } from '../../screens'
+import MenuIcon from '../commons/menu-icon';
+import OptionIcon from '../commons/option-icon';
 import { stackOptions } from '../commons/options';
 
 export default createStackNavigator({

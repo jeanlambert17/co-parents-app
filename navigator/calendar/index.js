@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import { CalendarScreen, CalendarEventAddScreen, CalendarEventEditScreen } from '../../screens'
-import MenuIcon from '../commons/MenuIcon';
+import MenuIcon from '../commons/menu-icon';
 import colors from '../../constants/colors';
 
 export default createStackNavigator({

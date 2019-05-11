@@ -1,4 +1,4 @@
-import Profile from './Profile';
+import Profile from './profile';
 import { connect } from 'react-redux'
 import { setUser } from '../../redux/actions/user';
 

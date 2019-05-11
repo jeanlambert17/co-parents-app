@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import { LogInScreen, SignUpScreen, WelcomeScreen, AddChildScreen, AddCoParentScreen, CalendarScreen, CoParentInviteScreen } from '../../screens'
-import BackIcon from '../commons/BackIcon';
+import BackIcon from '../commons/back-icon';
 import colors from '../../constants/colors';
 
 export default createStackNavigator(

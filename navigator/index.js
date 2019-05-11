@@ -1,14 +1,16 @@
 import { createSwitchNavigator, createAppContainer, } from 'react-navigation';
 import authNavigator from './auth';
 import drawerNavigator from './drawer';
+import LoadingScreen from '../screens/loading';
 
 const nav = createSwitchNavigator(
   {
     AuthNavigator: authNavigator,
-    MainNavigator: drawerNavigator
+    MainNavigator: drawerNavigator,
+    Loading: LoadingScreen
   }, {
-    // change to AuthNavigator
-    initialRouteName: 'AuthNavigator',
+    initialRouteName: 'Loading',
+    // initialRouteName: 'MainNavigator',
   }
 );
 

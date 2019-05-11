@@ -1,8 +1,8 @@
-export {default as Buttons} from './Buttons';
-export {default as Input} from './Input';
-export {default as Logo} from './Logo';
-export {default as ListItems} from './ListItems';
-export {default as Footers} from './Footers';
-export {default as Background} from './Background';
-export {default as Lists} from './Lists';
-export {default as Title} from './Title';
+export {default as Buttons} from './button';
+export {default as Input} from './input';
+export {default as Logo} from './logo';
+export {default as ListItems} from './list-items';
+export {default as Footers} from './footers';
+export {default as Background} from './background';
+export {default as Lists} from './lists';
+export {default as Title} from './title';

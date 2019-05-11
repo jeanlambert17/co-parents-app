@@ -8,20 +8,19 @@ import {
 } from 'react-native';
 // Reusable components
 import Logo from '../../components/Logo';
-// Scene's components
-import FacebookButton from './components/FacebookButton';
-import EmailButton from './components/EmailButton';
-import SignUpButton from './components/SignUpButton';
-import Loading from '../../components/Loading/loading';
+// Screen's components
+import FacebookButton from './components/facebook-button';
+import EmailButton from './components/email-button';
+import SignUpButton from './components/sign-up-button';
+import Loading from '../../components/Loading';
 import { loginWithFacebook } from '../../api/auth';
-import MessageHandler from '../../utils/MessageHandler';
+import MessageHandler from '../../utils/message-handler';
 
 // Variables
 const height = Dimensions.get('window').height;
 
 // Class component
 class Welcome extends Component {
-
   constructor(props) {
     super(props);
     this.state = state = {

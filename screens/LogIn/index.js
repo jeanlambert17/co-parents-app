@@ -1,4 +1,4 @@
-import LogIn from './LogIn';
+import LogIn from './login';
 import { connect } from 'react-redux';
 import { setUser } from '../../redux/actions/user';
 import { setEvents } from '../../redux/actions/event';

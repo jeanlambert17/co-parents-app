@@ -5,7 +5,7 @@ import ContactsNavigator from './contacts';
 import MessagesNavigator from './messages';
 import CheckNavigator from './check';
 import FamilyNavigator from './family';
-import Drawer from './commons/Drawer';
+import Drawer from './commons/drawer';
 import colors from '../constants/colors';
 import CoParentNavigator from './coparent';
 import ProfileNavigator from './profile';
@@ -64,7 +64,7 @@ export default createDrawerNavigator(
     }
   }, {
     // Change to CalendarNavigator or HomeNavigator
-    initialRouteName: 'CalendarNavigator',
+    initialRouteName: 'MessagesNavigator',
     contentComponent: props => <Drawer {...props} />,
     drawerBackgroundColor: colors.background,
     contentOptions: {

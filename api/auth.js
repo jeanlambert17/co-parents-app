@@ -5,6 +5,37 @@ import { getEvents } from "./event";
 import { getCoParents } from "./coparent";
 import { getChildren } from "./child";
 
+export const authenticate = async () => {
+  const user = auth().currentUser;
+    if(user) {
+      const _user = {
+        id: user.uid,
+        email: user.email,
+        icon: user.photoURL,
+        phoneNumber: user.phoneNumber,
+        name: user.displayName,
+        lastSignInTime: user.metadata.lastSignInTime
+      }
+      let info = {
+        children: [],
+        coParents: [],
+        events: []
+      };
+      const [res,err] = await getBasicData(_user.id);
+      if(err) return [null,false]
+      else {
+        info = res;
+        return [{
+          user: _user,
+          info,
+          facebook: user.providerId === 'facebook.com'
+        },true];
+      }
+    } else {
+      return [null,false];
+    }
+}
+
 export const loginWithFacebook = async () => {
   try {  
     const logIn = await LoginManager.logInWithReadPermissions(permissions);

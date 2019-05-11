@@ -1,8 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import { MyFamilyScreen } from '../../screens'
-import MenuIcon from '../commons/MenuIcon';
-import OptionIcon from '../commons/OptionIcon';
+import MenuIcon from '../commons/menu-icon';
+import OptionIcon from '../commons/option-icon';
 import { stackOptions } from '../commons/options';
 
 export default createStackNavigator({

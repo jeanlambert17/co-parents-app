@@ -10,8 +10,8 @@ export {default as CalendarEventAddScreen} from './CalendarEventAdd';
 export {default as CalendarEventEditScreen} from './CalendarEventEdit';
 // Contacts stack
 export {default as ContactListScreen} from './ContactList';
-export {default as ContactListAddScreen} from './ContactListAdd';
-export {default as ContactListEditScreen} from './ContactListEdit';
+export {default as ContactAddScreen} from './ContactAdd';
+export {default as ContactEditScreen} from './ContactEdit';
 // Messages
 export {default as MessageListScreen} from './MessageList';
 export {default as MessageRoomScreen} from './MessageRoom';

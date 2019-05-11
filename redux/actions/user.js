@@ -3,12 +3,12 @@ import { SET_USER } from '../const/user';
 
 const INITIAL_STATE = {
   user: {
-    // id: 'ntIL4GQ0WAai8L0NHsGrKHfOVcI2',
-    // email: "jeeaan1702@gmail.com",
-    // icon: "https://graph.facebook.com/10216482590805024/picture",
-    // lastSignInTime: 1551926830534,
-    // name: "Jean Lambert",
-    // phoneNumber: null
+    id: 'ntIL4GQ0WAai8L0NHsGrKHfOVcI2',
+    email: "jeeaan1702@gmail.com",
+    icon: "https://graph.facebook.com/10216482590805024/picture",
+    lastSignInTime: 1551926830534,
+    name: "Jean Lambert",
+    phoneNumber: null
   }
 }
 

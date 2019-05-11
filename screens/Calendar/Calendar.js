@@ -1,15 +1,24 @@
-import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import React from 'react';
+// Components
+import { 
+  View, 
+  StyleSheet 
+} from 'react-native';
+import { 
+  Text, 
+  Icon 
+} from 'react-native-elements';
 import { Calendar } from 'react-native-calendars';
-import { Text, Icon } from 'react-native-elements';
-import colors from '../../constants/colors';
-import EventList from './EventList';
-import { FixedFooter } from '../../components/Footers';
-import { OptionButton } from '../../components/Buttons';
+import Loading from '../../components/loading/loading';
+import { FixedFooter } from '../../components/footer';
+import { OptionButton } from '../../components/nutton';
+import EventList from './components/event-list';
+// Http calls
 import { createEvent, updateEvent } from '../../api/event';
-import MessageHandler from '../../utils/MessageHandler';
-import Loading from '../../components/Loading/loading';
 import { getBasicData } from '../../api/auth';
+import MessageHandler from '../../utils/message-handler';
+// Contants
+import colors from '../../constants/colors';
 
 class _Calendar extends React.PureComponent {
   constructor(props) {

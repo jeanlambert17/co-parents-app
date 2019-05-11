@@ -57,7 +57,7 @@ export default class Profile extends Component {
     this.messageHandler.centerMessage(res);
   }
 
-  uploadImage = async(uri,fileName,mime) => {
+  _uploadImage = async(uri,fileName,mime) => {
     const id = this.props.user.id;
     const uploadRef = storage().ref(`/user/${id}`).child('icon.jpg');
     const uploadURI = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
@@ -69,7 +69,7 @@ export default class Profile extends Component {
       if(err) throw err;
       this.props.setUser(user);
     } catch(err) {
-      this.messageHandler.errorMessage(err);
+      this.messageHandler.errorMessage(err.message || err);
     } finally {
       this.setState({loading:false})
     }
@@ -80,7 +80,7 @@ export default class Profile extends Component {
       if (img.error) {
         this.messageHandler.errorMessage(img.error);
       } else {
-        this.uploadImage(img.uri, img.fileName, img.type);
+        this._uploadImage(img.uri, img.fileName, img.type);
       }
     });
   }
@@ -89,7 +89,6 @@ export default class Profile extends Component {
     const { user } = this.props;
     const { name, phoneNumber, email, password, loading } = this.state;
     const avatarProps = handleAvatarProps(user.icon, user.name[0].toUpperCase());
-    // const emailChange = loginType === 'facebook' ? false : true;
     
     return (
       <CurvedBackground>

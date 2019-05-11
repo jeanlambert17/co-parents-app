@@ -1,24 +1,38 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import { 
+  ActivityIndicator, 
+  View, 
+  StyleSheet 
+} from 'react-native';
+import colors from '../../constants/colors';
+import { authenticate } from '../../api/auth';
 
 class Loading extends Component {
   constructor(props) {
     super(props);
 
-    this.isAuth();
+    this._authenticate();
   }
 
-  isAuth = async () => {
-    // setTimeout(() => {
+  _authenticate = async () => {
+    const [data,auth] = await authenticate();
+    if(!auth) {
       this.props.navigation.navigate('AuthNavigator');
-    // }, 2500)
+    } else {
+      this.props.setUser(data.user, data.facebook);
+      this.props.setData(data.info);
+      this.props.navigation.navigate('MainNavigator');
+    }
   }
 
    render() {
 
     return (      
       <View style={styles.container}>
-        <ActivityIndicator size="large" color="red" />
+        <ActivityIndicator 
+          size="large" 
+          color={colors.green}
+        />
       </View>
     )
   }
